@@ -230,7 +230,7 @@
 
   // ── Init game ──────────────────────────────────────────────────────────────
   function initGame() {
-    score = 0; lives = 3; wave = 1; paused = false; gameOver = false;
+    score = 0; lives = 5; wave = 1; paused = false; gameOver = false;
     shootCooldown = 0; enemyMoveDir = 1; enemyMoveTimer = 0;
     enemyDropping = false; enemyDropAmount = 0; waveTimer = 0;
     bullets = []; enemyBullets = []; particles = []; powerups = [];
@@ -302,12 +302,12 @@
   // ── Shooting ───────────────────────────────────────────────────────────────
   function firePlayer() {
     if (shootCooldown > 0) return;
-    bullets.push({ x: player.x, y: player.y - player.h / 2 - 4, vy: -11, w: 4, h: 16 });
-    shootCooldown = 14;
+    bullets.push({ x: player.x, y: player.y - player.h / 2 - 4, vy: -14, w: 4, h: 16 });
+    shootCooldown = 9;
   }
 
   function fireEnemy(e) {
-    enemyBullets.push({ x: e.x, y: e.y + e.h / 2, vy: 4 + wave * 0.3, w: 5, h: 12, color: e.color });
+    enemyBullets.push({ x: e.x, y: e.y + e.h / 2, vy: 2.5 + wave * 0.15, w: 5, h: 12, color: e.color });
   }
 
   // ── Collision ──────────────────────────────────────────────────────────────
@@ -367,7 +367,7 @@
     });
 
     // Enemy movement
-    const speed = 0.7 + wave * 0.18;
+    const speed = 0.4 + wave * 0.10;
     if (enemyDropping) {
       enemies.forEach(e => e.y += 3);
       enemyDropAmount += 3;
@@ -391,8 +391,8 @@
     enemies.forEach(e => {
       e.shootTimer--;
       if (e.shootTimer <= 0) {
-        if (Math.random() < 0.4) fireEnemy(e);
-        e.shootTimer = 90 - wave * 4 + Math.random() * 60;
+        if (Math.random() < 0.25) fireEnemy(e);
+        e.shootTimer = 140 - wave * 3 + Math.random() * 80;
       }
     });
 
