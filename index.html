@@ -8,7 +8,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: #030712;
+      background: #0a0a1a;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -40,9 +40,9 @@
       letter-spacing: 2px;
     }
 
-    #score-label { color: #38bdf8; }
-    #lives-label { color: #f472b6; }
-    #wave-label  { color: #a78bfa; }
+    #score-label { color: #4ade80; }
+    #lives-label { color: #facc15; }
+    #wave-label  { color: #f97316; }
 
     canvas {
       display: block;
@@ -63,7 +63,7 @@
 
     #overlay h1 {
       font-size: clamp(32px, 8vw, 64px);
-      background: linear-gradient(135deg, #38bdf8, #a78bfa, #f472b6);
+      background: linear-gradient(135deg, #4ade80, #f97316, #facc15);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -99,9 +99,9 @@
       font-size: 18px;
       font-weight: bold;
       letter-spacing: 3px;
-      border: 2px solid #38bdf8;
+      border: 2px solid #4ade80;
       background: transparent;
-      color: #38bdf8;
+      color: #4ade80;
       cursor: pointer;
       border-radius: 4px;
       transition: all 0.2s;
@@ -109,9 +109,9 @@
     }
 
     button:hover, button:active {
-      background: #38bdf8;
-      color: #030712;
-      box-shadow: 0 0 24px #38bdf8aa;
+      background: #4ade80;
+      color: #0a0a1a;
+      box-shadow: 0 0 24px #4ade80aa;
     }
 
     #mobile-controls {
@@ -136,9 +136,9 @@
       width: 64px;
       height: 64px;
       border-radius: 50%;
-      border: 2px solid rgba(56,189,248,0.5);
-      background: rgba(56,189,248,0.1);
-      color: #38bdf8;
+      border: 2px solid rgba(74,222,128,0.5);
+      background: rgba(74,222,128,0.1);
+      color: #4ade80;
       font-size: 22px;
       display: flex;
       align-items: center;
@@ -149,7 +149,7 @@
     }
 
     .ctrl-btn:active {
-      background: rgba(56,189,248,0.35);
+      background: rgba(74,222,128,0.35);
     }
 
     @media (max-width: 600px) {
@@ -239,7 +239,7 @@
       x: W / 2, y: H - 80,
       w: 44, h: 32,
       speed: 6,
-      color: '#38bdf8',
+      color: '#4ade80',
       invincible: 0,
       thruster: 0
     };
@@ -255,7 +255,7 @@
     const cols = Math.min(8 + wave, 14);
     const rows = Math.min(2 + Math.floor(wave / 2), 6);
     const types = ['⬡', '◈', '⬟', '✦', '◉', '⬢'];
-    const colors = ['#f472b6','#fb923c','#facc15','#a78bfa','#34d399','#38bdf8'];
+    const colors = ['#f472b6','#fb923c','#facc15','#a78bfa','#34d399','#4ade80'];
 
     const totalW = cols * 56;
     const startX = (W - totalW) / 2 + 28;
@@ -454,8 +454,8 @@
 
     // Background gradient
     const bg = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W,H));
-    bg.addColorStop(0, '#050d1f');
-    bg.addColorStop(1, '#030712');
+    bg.addColorStop(0, '#0d1a0f');
+    bg.addColorStop(1, '#0a0a1a');
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, W, H);
 
@@ -520,11 +520,11 @@
 
     // Player bullets
     bullets.forEach(b => {
-      ctx.shadowColor = '#38bdf8';
+      ctx.shadowColor = '#4ade80';
       ctx.shadowBlur = 14;
       const grad = ctx.createLinearGradient(b.x, b.y, b.x, b.y + b.h);
       grad.addColorStop(0, '#ffffff');
-      grad.addColorStop(0.4, '#38bdf8');
+      grad.addColorStop(0.4, '#4ade80');
       grad.addColorStop(1, 'transparent');
       ctx.fillStyle = grad;
       roundRect(ctx, b.x - b.w/2, b.y, b.w, b.h, 3);
@@ -540,7 +540,7 @@
     if (paused) {
       ctx.fillStyle = 'rgba(3,7,18,0.6)';
       ctx.fillRect(0, 0, W, H);
-      ctx.fillStyle = '#38bdf8';
+      ctx.fillStyle = '#4ade80';
       ctx.font = 'bold 48px Courier New';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
@@ -570,7 +570,7 @@
     }
 
     // Ship body
-    ctx.shadowColor = '#38bdf8';
+    ctx.shadowColor = '#4ade80';
     ctx.shadowBlur = 18;
 
     // Hull
@@ -586,7 +586,7 @@
     ctx.fill();
 
     // Accent lines
-    ctx.strokeStyle = '#38bdf8';
+    ctx.strokeStyle = '#4ade80';
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(0, -16);
@@ -597,8 +597,8 @@
 
     // Cockpit
     const cg = ctx.createRadialGradient(0, -4, 0, 0, -4, 9);
-    cg.addColorStop(0, '#7dd3fc');
-    cg.addColorStop(1, '#0369a1');
+    cg.addColorStop(0, '#86efac');
+    cg.addColorStop(1, '#166534');
     ctx.fillStyle = cg;
     ctx.beginPath();
     ctx.ellipse(0, -4, 7, 9, 0, 0, Math.PI * 2);
@@ -691,7 +691,7 @@
     if (gameStarted) return;
     ctx.clearRect(0, 0, W, H);
     const bg = ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.max(W,H));
-    bg.addColorStop(0, '#050d1f'); bg.addColorStop(1, '#030712');
+    bg.addColorStop(0, '#0d1a0f'); bg.addColorStop(1, '#0a0a1a');
     ctx.fillStyle = bg; ctx.fillRect(0,0,W,H);
     stars.forEach(s => {
       s.y += s.speed;
