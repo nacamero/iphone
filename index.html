@@ -162,7 +162,7 @@
 <div id="ui">
   <span id="score-label">SCORE: <span id="score">0</span></span>
   <span id="wave-label">WAVE: <span id="wave">1</span></span>
-  <span id="lives-label">&#9829; <span id="lives">3</span></span>
+  <span id="lives-label">&#9829; <span id="lives">5</span></span>
 </div>
 
 <canvas id="canvas"></canvas>
@@ -214,7 +214,6 @@
   let enemyDropAmount = 0;
   let waveTimer = 0;
   let animId;
-  let autoFire = false;
 
   function makeStars() {
     stars = Array.from({ length: 120 }, () => ({
@@ -227,7 +226,7 @@
   }
 
   function initGame() {
-    score = 0; lives = 3; wave = 1; paused = false; gameOver = false;
+    score = 0; lives = 5; wave = 1; paused = false; gameOver = false;
     shootCooldown = 0; enemyMoveDir = 1; enemyMoveTimer = 0;
     enemyDropping = false; enemyDropAmount = 0; waveTimer = 0;
     bullets = []; enemyBullets = []; particles = []; powerups = [];
@@ -297,12 +296,12 @@
 
   function firePlayer() {
     if (shootCooldown > 0) return;
-    bullets.push({ x: player.x, y: player.y - player.h / 2 - 4, vy: -11, w: 4, h: 16 });
-    shootCooldown = 14;
+    bullets.push({ x: player.x, y: player.y - player.h / 2 - 4, vy: -14, w: 4, h: 16 });
+    shootCooldown = 9;
   }
 
   function fireEnemy(e) {
-    enemyBullets.push({ x: e.x, y: e.y + e.h / 2, vy: 4 + wave * 0.3, w: 5, h: 12, color: e.color });
+    enemyBullets.push({ x: e.x, y: e.y + e.h / 2, vy: 2.5 + wave * 0.15, w: 5, h: 12, color: e.color });
   }
 
   function rectHit(a, b, pad) {
@@ -318,7 +317,7 @@
 
     if (keys['ArrowLeft']  || keys['a']) player.x = Math.max(player.w / 2, player.x - player.speed);
     if (keys['ArrowRight'] || keys['d']) player.x = Math.min(W - player.w / 2, player.x + player.speed);
-    if (keys[' '] || keys['z'] || autoFire) firePlayer();
+    if (keys[' '] || keys['z']) firePlayer();
 
     if (shootCooldown > 0) shootCooldown--;
     if (player.invincible > 0) player.invincible--;
@@ -342,7 +341,7 @@
             score += e.pts;
             scoreEl.textContent = score;
             burst(e.x, e.y, e.color);
-            if (Math.random() < 0.06) {
+            if (Math.random() < 0.08) {
               powerups.push({ x: e.x, y: e.y, type: '⚡', vy: 1.5, life: 1 });
             }
             return false;
@@ -355,7 +354,7 @@
       return !hit;
     });
 
-    const spd = 0.7 + wave * 0.18;
+    const spd = 0.4 + wave * 0.10;
     if (enemyDropping) {
       enemies.forEach(function(e) { e.y += 3; });
       enemyDropAmount += 3;
@@ -373,8 +372,8 @@
     enemies.forEach(function(e) {
       e.shootTimer--;
       if (e.shootTimer <= 0) {
-        if (Math.random() < 0.4) fireEnemy(e);
-        e.shootTimer = 90 - wave * 4 + Math.random() * 60;
+        if (Math.random() < 0.25) fireEnemy(e);
+        e.shootTimer = 140 - wave * 3 + Math.random() * 80;
       }
     });
 
@@ -400,7 +399,7 @@
       if (p.y > H + 30) return false;
       if (rectHit(p, player, 16)) {
         shootCooldown = 0;
-        lives = Math.min(lives + 1, 5);
+        lives = Math.min(lives + 1, 7);
         livesEl.textContent = lives;
         burst(p.x, p.y, '#facc15', 20);
         return false;
