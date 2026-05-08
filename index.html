@@ -225,7 +225,7 @@
       const tier = Math.min(r, types.length-1);
       enemies.push({ x: startX+c*56, y: 80+r*52, w: 30, h: 24,
         hp: tier<3?1:2, maxhp: tier<3?1:2, type: types[tier], color: colors[tier],
-        pts: (tier+1)*10+wave*5, shootTimer: Math.random()*180, wobble: Math.random()*Math.PI*2 });
+        pts: (tier+1)*10+wave*5, shootTimer: Math.random()*300, wobble: Math.random()*Math.PI*2 });
     }
     enemyMoveDir = 1; enemyMoveTimer = 0; waveEl.textContent = wave;
   }
@@ -245,7 +245,7 @@
   }
 
   function fireEnemy(e) {
-    enemyBullets.push({x:e.x,y:e.y+e.h/2,vy:2.5+wave*0.15,w:5,h:12,color:e.color});
+    enemyBullets.push({x:e.x,y:e.y+e.h/2,vy:1.2+wave*0.05,w:5,h:12,color:e.color});
   }
 
   function rectHit(a,b,pad) {
@@ -294,7 +294,10 @@
 
     enemies.forEach(function(e){
       e.shootTimer--;
-      if(e.shootTimer<=0){if(Math.random()<0.25)fireEnemy(e);e.shootTimer=140-wave*3+Math.random()*80;}
+      if(e.shootTimer<=0){
+        if(Math.random()<0.08)fireEnemy(e);
+        e.shootTimer=300-wave*5+Math.random()*120;
+      }
     });
 
     enemyBullets=enemyBullets.filter(function(b){
