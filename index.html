@@ -307,7 +307,7 @@
   }
 
   function fireEnemy(e) {
-    enemyBullets.push({ x: e.x, y: e.y + e.h / 2, vy: 2.5 + wave * 0.15, w: 5, h: 12, color: e.color });
+    enemyBullets.push({ x: e.x, y: e.y + e.h / 2, vy: 1.2 + wave * 0.05, w: 5, h: 12, color: e.color });
   }
 
   // ── Collision ──────────────────────────────────────────────────────────────
@@ -391,8 +391,8 @@
     enemies.forEach(e => {
       e.shootTimer--;
       if (e.shootTimer <= 0) {
-        if (Math.random() < 0.25) fireEnemy(e);
-        e.shootTimer = 140 - wave * 3 + Math.random() * 80;
+        if (Math.random() < 0.08) fireEnemy(e);
+        e.shootTimer = 300 - wave * 5 + Math.random() * 120;
       }
     });
 
