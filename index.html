@@ -354,14 +354,14 @@
       return !hit;
     });
 
-    const spd = 0.2 + wave * 0.05;
+    const speed = 0.06 + wave * 0.02;
     if (enemyDropping) {
       enemies.forEach(function(e) { e.y += 3; });
       enemyDropAmount += 3;
       if (enemyDropAmount >= 22) { enemyDropping = false; enemyDropAmount = 0; enemyMoveDir *= -1; }
     } else {
       enemyMoveTimer++;
-      enemies.forEach(function(e) { e.x += spd * enemyMoveDir; e.wobble += 0.04; });
+      enemies.forEach(function(e) { e.x += speed * enemyMoveDir; e.wobble += 0.04; });
       const edgeL = Math.min.apply(null, enemies.map(function(e){ return e.x; }));
       const edgeR = Math.max.apply(null, enemies.map(function(e){ return e.x; }));
       if ((enemyMoveDir === 1 && edgeR > W - 30) || (enemyMoveDir === -1 && edgeL < 30)) {
