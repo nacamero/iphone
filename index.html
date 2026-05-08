@@ -367,7 +367,7 @@
     });
 
     // Enemy movement
-    const speed = 0.06 + wave * 0.02;
+    const speed = 0.02 + wave * 0.008;
     if (enemyDropping) {
       enemies.forEach(e => e.y += 3);
       enemyDropAmount += 3;
@@ -411,10 +411,8 @@
       return true;
     });
 
-    // Enemy reaches bottom
-    if (enemies.some(e => e.y + e.h / 2 > H - 90)) {
-      lives = 0; livesEl.textContent = 0; endGame(); return;
-    }
+    // Enemies that pass the bottom just disappear
+    enemies = enemies.filter(e => e.y - e.h / 2 < H);
 
     // Powerups
     powerups = powerups.filter(p => {
